@@ -35,6 +35,55 @@ function updatePlayerStats() {
 	document.getElementById("cashBox").innerHTML = "$" + player.cash;
 }
 
+// mechanic text description
+var mechanicTextsEn = [
+	{
+		"title": "Work on your prototype",
+		"description": "It's all about making games. So make sure you put in some time to finishing your prototype!"
+	},
+	{
+		"title": "Hire a new team member",
+		"description": "Expanding your team can help you finish your prototype faster, but you need to make sure you can afford it."
+	},
+	{
+		"title": "Look for client work",
+		"description": "Working on client projects can help you raise some cash, but it will force you to turn your efforts away from your protoype."
+	},
+	{
+		"title": "Test game with players",
+		"description": "Doing some playtesting can speed up your development process, but it will cost you some money to put it together."
+	},
+	{
+		"title": "Take a day off",
+		"description": "Make sure your team doesn't burn out - take a break every once in a while before stress levels get out of control."
+	},
+	{
+		"title": "Pitch a game to investors",
+		"description": "You prototype is ready to show around to investors - a cash injection will guarantee your studio's survival in the future."
+	},
+	{
+		"title": "Present game at a developer conference",
+		"description": "Ready to show your game to the world? Showing it at a conference will increase your chances of landing an investor."
+	},
+	{
+		"title": "Publish game",
+		"description": "Your prototype is complete! You're now ready to publish your game."
+	}
+]
+
+// assign texts based on lang select - not comprehensive, but sets the base
+function setLanguage(lang) {
+	if (lang == "en") {
+		var mechanicTexts = mechanicTextsEn;
+	}
+	else if (lang =="es") {
+		var mechanicTexts = mechanicTextsEs;
+	}
+}
+
+// in the meantime...
+mechanicTexts = mechanicTextsEn;
+
 // render player actions
 function renderMechanics() {
 	var mechanicsBlock = document.getElementById("mechanicsBlock");
@@ -46,44 +95,44 @@ function renderMechanics() {
 	var tr = document.createElement("tr");
 	var td = tr.appendChild(document.createElement("td"));
 	var td2 = tr.appendChild(document.createElement("td"));
-	td.innerHTML = '<h3>Work on your prototype</h3>';
-	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsDevelop()">Crunch!</button>'
+	td.innerHTML = '<h3>' + mechanicTexts[0].title + '</h3>' + '<p>' + mechanicTexts[0].description + '</p>';
+	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsDevelop()">Crunch!</button>';
 	mechanicsBlock.appendChild(tr);
 
 	var tr = document.createElement("tr");
 	var td = tr.appendChild(document.createElement("td"));
 	var td2 = tr.appendChild(document.createElement("td"));
-	td.innerHTML = '<h3>Hire a new team member</h3>';
-	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsHire()">Crunch!</button>'
+	td.innerHTML = '<h3>' + mechanicTexts[1].title + '</h3>' + '<p>' + mechanicTexts[1].description + '</p>';
+	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsHire()">Crunch!</button>';
 	mechanicsBlock.appendChild(tr);
 
 	var tr = document.createElement("tr");
 	var td = tr.appendChild(document.createElement("td"));
 	var td2 = tr.appendChild(document.createElement("td"));
-	td.innerHTML = '<h3>Look for client work</h3>';
-	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsClient()">Crunch!</button>'
+	td.innerHTML = '<h3>' + mechanicTexts[2].title + '</h3>' + '<p>' + mechanicTexts[2].description + '</p>';
+	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsClient()">Crunch!</button>';
 	mechanicsBlock.appendChild(tr);
 
 	var tr = document.createElement("tr");
 	var td = tr.appendChild(document.createElement("td"));
 	var td2 = tr.appendChild(document.createElement("td"));
-	td.innerHTML = '<h3>Test game with players</h3>';
-	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsTesting()">Crunch!</button>'
+	td.innerHTML = '<h3>' + mechanicTexts[3].title + '</h3>' + '<p>' + mechanicTexts[3].description + '</p>';
+	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsTesting()">Crunch!</button>';
 	mechanicsBlock.appendChild(tr);
 
 	var tr = document.createElement("tr");
 	var td = tr.appendChild(document.createElement("td"));
 	var td2 = tr.appendChild(document.createElement("td"));
-	td.innerHTML = '<h3>Take a day off</h3>';
-	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsBreak()">Crunch!</button>'
+	td.innerHTML = '<h3>' + mechanicTexts[4].title + '</h3>' + '<p>' + mechanicTexts[4].description + '</p>';
+	td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsBreak()">Crunch!</button>';
 	mechanicsBlock.appendChild(tr);
 
 	if (player.completion >= 75) {
 		var tr = document.createElement("tr");
 		var td = tr.appendChild(document.createElement("td"));
 		var td2 = tr.appendChild(document.createElement("td"));
-		td.innerHTML = '<h3>Pitch game to investors</h3>';
-		td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsPitch()">Crunch!</button>'
+		td.innerHTML = '<h3>' + mechanicTexts[5].title + '</h3>' + '<p>' + mechanicTexts[5].description + '</p>';
+		td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsPitch()">Crunch!</button>';
 		mechanicsBlock.appendChild(tr);
 	}
 
@@ -91,8 +140,8 @@ function renderMechanics() {
 		var tr = document.createElement("tr");
 		var td = tr.appendChild(document.createElement("td"));
 		var td2 = tr.appendChild(document.createElement("td"));
-		td.innerHTML = '<h3>Present game at a developer conference</h3>';
-		td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsConference()">Crunch!</button>'
+		td.innerHTML = '<h3>' + mechanicTexts[6].title + '</h3>' + '<p>' + mechanicTexts[6].description + '</p>';
+		td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsConference()">Crunch!</button>';
 		mechanicsBlock.appendChild(tr);
 	}
 
@@ -100,8 +149,8 @@ function renderMechanics() {
 		var tr = document.createElement("tr");
 		var td = tr.appendChild(document.createElement("td"));
 		var td2 = tr.appendChild(document.createElement("td"));
-		td.innerHTML = '<h3>Publish game</h3>';
-		td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsGame()">Crunch!</button>'
+		td.innerHTML = '<h3>' + mechanicTexts[7].title + '</h3>' + '<p>' + mechanicTexts[7].description + '</p>';
+		td2.innerHTML = '<button class="btn btn-large btn-info" onclick="mechanicsGame()">Crunch!</button>';
 		mechanicsBlock.appendChild(tr);
 	}
 }
