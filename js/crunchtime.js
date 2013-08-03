@@ -1,6 +1,6 @@
-// ------- //
-// PeruDev //
-// ------- //
+// ---------- //
+// CrunchTime //
+// ---------- //
 
 // ------------- //
 // Initial Setup //
@@ -10,14 +10,14 @@
 
 function PlayerClass(name) {
 	this.name = name;
-	this.ttl = 60;
-	this.completion = 50;
-	this.capacity = 3;
 	this.cash = 1000;
+	this.burnrate = 25;
+	this.ttl = this.cash / this.burnrate;
+	this.completion = 25;
+	this.capacity = 2;
 	this.investor = 0;
 	this.luck = 20;
 	this.stress = 50;
-	this.burnrate = 20;
 }
 
 var playerName = window.prompt("Enter player name");
@@ -27,12 +27,19 @@ var player = new PlayerClass(playerName);
 // Environment setup //
 // ----------------- //
 
-// update player stats display
+// update player stats
 function updatePlayerStats() {
+	player.cash = player.cash - player.burnrate;
+	player.ttl = player.cash / player.burnrate;
+}
+
+// update player stats display
+function renderPlayerStats() {
 	document.getElementById("playerNameBox").innerHTML = player.name;
 	document.getElementById("ttlBox").innerHTML = player.ttl + "days";
 	document.getElementById("completionBox").innerHTML = player.completion + "%";
 	document.getElementById("cashBox").innerHTML = "$" + player.cash;
+	document.getElementById("burnrateBox").innerHTML = "$" + player.burnrate;
 }
 
 // mechanic text description
@@ -155,11 +162,32 @@ function renderMechanics() {
 	}
 }
 
+// roll dice for random events
+function rollDice() {
+	roll = Math.floor((Math.random()*10)+1);
+	if (roll == 10) {
+		eventsSplit();
+	}
+	else if (roll == 20) {
+		eventsLoan();
+	}
+	else if (roll == 30) {
+		eventsEviction();
+	}
+	else if (roll == 40) {
+		eventsTaxes();
+	}
+	else if (roll == 50) {
+		eventsSprint();
+	}
+}
+
 // Turn mechanic
 function nextTurn() {
 	checkGameState();
-	player.ttl = player.ttl - 1;
+	rollDice();
 	updatePlayerStats();
+	renderPlayerStats();
 	renderMechanics(); // some mechanics display conditionally based on player stats, so we refresh every turn
 }
 
@@ -171,7 +199,7 @@ function checkGameState() {
 	else if (player.cash <= 0) {
 		endGame("lose");
 	}
-	else if (player.completion == 100) {
+	else if (player.completion >= 100) {
 		endGame("win");
 	}
 	else if (player.investor == 1) {
@@ -246,27 +274,33 @@ function mechanicsBreak() {
 
 // lose a co-founder (must hire)
 function eventsSplit() {
-
+	window.alert("Your partner quit. Unless you hire someone new, your development capacity is reduced in half.");
+	player.capacity = player.capacity / 2;
 }
 
 // founder borrows money (reduces cash, increases stress)
 function eventsLoan() {
-
+	window.alert("Your partner needs to borrow money from the company because of an emergency. You're not happy about this.");
+	player.cash = player.cash - 10;
+	player.stress = player.stress + 20;
 }
 
 // founder evicted (increases stress, reduces time)
 function eventsEviction() {
-
+	window.alert("Your partner couldn't make rent and has to move in with you. You now see each other all day. And you had to help him move his stuff.");
+	player.ttl = player.ttl - 3;
 }
 
 // unexpected tax bill
 function eventsTaxes() {
-
+	window.alert("You forgot to pay your taxes. You just got hit with a fine for failing to pay on time.");
+	player.cash = player.cash - 200;
 }
 
 // code sprint (increases completion)
 function eventsSprint() {
-
+	window.alert("You spent all night coding and managed to get ahead on the to do list. Coffee FTW.");
+	player.completion = player.completion + 10;
 }
 
 
@@ -275,6 +309,6 @@ function eventsSprint() {
 // ------------ //
 
 window.onload = function () {
-	updatePlayerStats();
+	renderPlayerStats();
 	renderMechanics();
 }

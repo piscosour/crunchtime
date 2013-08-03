@@ -5,27 +5,40 @@
 </head>
 <body>
 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/crunchtime.js"></script>
+
 <div class="container">
 	<div class="row">
-		<div class="span3">
-			<table class="table table-bordered table-condensed">
+		<div class="span12">
+			<table class="table table-bordered table-condensed" width="100%">
 				<tr>
 					<td colspan="2"><h4 id="playerNameBox"></h4></td>
 				</tr>
 				<tr>
-					<td width="50%">Days Left</td>
+					<td width="25%">Days Left</td>
+					<td width="25%">Prototype Completion</td>
+					<td width="25%">Cash</td>
+					<td width="25%">Burn Rate</td>
+					
+				</tr>
+				<tr>
 					<td id="ttlBox"></td>
-				</tr>
-				<tr>
-					<td>Completion</td>
 					<td id="completionBox"></td>
-				</tr>
-				<tr>
-					<td>Cash</td>
 					<td id="cashBox"></td>
+					<td id="burnrateBox"></td>
 				</tr>
 			</table>
+
+			<hr />
+
+			<table class="table table-bordered table-condensed">
+				<!-- Populate team members with JS -->
+			</table>
 		</div>
+	</div>
+	<div class="row">
 		<div class="span9">
 			<table class="table table-bordered" id="mechanicsBlock">
 				<!-- Populated through Javascript with action buttons -->
@@ -33,10 +46,6 @@
 		</div>
 	</div>
 </div>
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/crunchtime.js"></script>
 
 </body>
 </html>
