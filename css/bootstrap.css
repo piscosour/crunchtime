@@ -226,6 +226,7 @@ a:hover {
 .navbar-fixed-top .container,
 .navbar-fixed-bottom .container {
   width: 940px;
+  margin-top: 20px;
 }
 
 .span12 {
